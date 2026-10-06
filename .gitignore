@@ -1,0 +1,13 @@
+*.log
+*.backup
+*.back
+
+env_files/
+mounted/
+
+# JWT signing key and admin token
+env_files/jwt.env
+env_files/jwt_private.env
+
+# Development TLS certificates and CA key (make_cert_files.sh)
+dev_certs/
