@@ -24,17 +24,17 @@ Why not just use isle-site-template as is?
       - run in bash shell: `sudo ./make_cert_files.sh`
 
 ## Refresh the solr index
-   - `docker compose exec drupal drush search-api:reset-tracker`
-   - `docker compose exec drupal drush search-api:index`
+   - `docker compose exec islandora drush search-api:reset-tracker`
+   - `docker compose exec islandora drush search-api:index`
 
 ## Refresh the Blazegraph index
-   - `docker compose exec drupal drush php:eval '\Drupal::service("account_switcher")->switchTo(\Drupal\user\Entity\User::load(1)); foreach (["node" => "index_node_in_triplestore", "media" => "index_media_in_triplestore", "taxonomy_term" => "index_taxonomy_term_in_the_triplestore"] as $t => $a) { $ids = \Drupal::entityQuery($t)->accessCheck(FALSE)->execute(); \Drupal::entityTypeManager()->getStorage("action")->load($a)->execute(\Drupal::entityTypeManager()->getStorage($t)->loadMultiple($ids)); echo count($ids) . " $t queued\n"; }'`
+   - `docker compose exec islandora drush php:eval '\Drupal::service("account_switcher")->switchTo(\Drupal\user\Entity\User::load(1)); foreach (["node" => "index_node_in_triplestore", "media" => "index_media_in_triplestore", "taxonomy_term" => "index_taxonomy_term_in_the_triplestore"] as $t => $a) { $ids = \Drupal::entityQuery($t)->accessCheck(FALSE)->execute(); \Drupal::entityTypeManager()->getStorage("action")->load($a)->execute(\Drupal::entityTypeManager()->getStorage($t)->loadMultiple($ids)); echo count($ids) . " $t queued\n"; }'`
 
 ## Look at your dev container's web UIs
-   - Traefik: https://traefik.islandora.dev/dashboard/#/
-   - Drupal: https://islandora.dev/admin/content
-   - Fedora: https://fcrepo.islandora.dev/fcrepo/rest
-   - Blazegraph: https://blazegraph.islandora.dev/bigdata/#query
+   - Traefik: https://traefik.libapps-dev.uncw.edu/dashboard/#/
+   - Islandora: https://islandora.libapps-dev.uncw.edu/admin/content
+   - Fedora: https://fcrepo.libapps-dev.uncw.edu/fcrepo/rest
+   - Blazegraph: https://blazegraph.libapps-dev.uncw.edu/bigdata/#query
       - First select the 'islandora' namespace (Namespaces tab -> "Use" next to islandora).
       - The page defaults to the empty 'kb' namespace, so queries there return 0 results.
       - An example query:
@@ -49,9 +49,9 @@ Why not just use isle-site-template as is?
                OPTIONAL { ?item dcterms:title ?title }
                }
                ORDER BY ?type ?title
-   - ActiveMQ: https://activemq.islandora.dev/admin/topics.jsp
-   - Cantaloupe: https://islandora.dev/cantaloupe/health
-   - Solr: https://solr.islandora.dev/solr/#/default/query
+   - ActiveMQ: https://activemq.libapps-dev.uncw.edu/admin/queues.jsp
+   - Cantaloupe: https://islandora.libapps-dev.uncw.edu/cantaloupe/health
+   - Solr: https://solr.libapps-dev.uncw.edu/solr/#/default/query
 
 
 
@@ -66,4 +66,6 @@ Why not just use isle-site-template as is?
    - set the env_files
    - run `./make_jwt_files.sh`
 
+## Self-signed
+   - make a ./env_files/ca.env with the public cert
 

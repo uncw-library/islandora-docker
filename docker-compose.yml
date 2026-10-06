@@ -14,8 +14,8 @@ services:
       - traefik.http.routers.activemq.entrypoints=websecure
       - traefik.http.routers.activemq.rule=Host(`activemq.libapps-dev.uncw.edu`)
       - traefik.http.routers.activemq.tls=true
-      - traefik.http.services.activemq.loadbalancer.server.port=8161
       - traefik.http.routers.activemq.middlewares=jumpbox-whitelist@file
+      - traefik.http.services.activemq.loadbalancer.server.port=8161
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "61613"]
       interval: 30s
@@ -37,8 +37,8 @@ services:
       - traefik.http.routers.blazegraph.entrypoints=websecure
       - traefik.http.routers.blazegraph.rule=Host(`blazegraph.libapps-dev.uncw.edu`)
       - traefik.http.routers.blazegraph.tls=true
-      - traefik.http.services.blazegraph.loadbalancer.server.port=8080
       - traefik.http.routers.blazegraph.middlewares=jumpbox-whitelist@file
+      - traefik.http.services.blazegraph.loadbalancer.server.port=8080
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/bigdata/"]
       interval: 30s
@@ -52,19 +52,16 @@ services:
     env_file:
       - ./env_files/base.env
       - ./env_files/cantaloupe.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     volumes:
       - cantaloupe-data:/data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.cantaloupe.middlewares=cantaloupe-chain@file
       - traefik.http.routers.cantaloupe.entrypoints=websecure
-      - traefik.http.routers.cantaloupe.rule=Host(`libapps-dev.uncw.edu`) && PathPrefix(`/cantaloupe`)
+      - traefik.http.routers.cantaloupe.rule=Host(`islandora.libapps-dev.uncw.edu`) && PathPrefix(`/cantaloupe`)
       - traefik.http.routers.cantaloupe.tls=true
+      - traefik.http.routers.cantaloupe.middlewares=cantaloupe-chain@file,jumpbox-whitelist@file
+      - traefik.http.routers.cantaloupe.priority=100
       - traefik.http.services.cantaloupe.loadbalancer.server.port=8182
-      - traefik.http.routers.cantaloupe.middlewares=jumpbox-whitelist@file
     healthcheck:
       test: ["CMD", "sh", "-c", "curl -s localhost:8182/health | grep -q '\"color\":\"GREEN\"'"]
       interval: 30s
@@ -72,25 +69,22 @@ services:
       retries: 5
     restart: unless-stopped
 
-  drupal:
+  islandora:
     image: uncwlibrary/islandora-drupal:7.0.18
-    container_name: drupal
-    build:
-      context: ./drupal
-      args:
-        REPOSITORY: islandora
-        TAG: 7.0.18
+    container_name: islandora
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       - ./env_files/jwt.env
       - ./env_files/jwt_private.env
       - ./env_files/drupal.env
     labels:
       - traefik.enable=true
-      - traefik.http.routers.drupal.entrypoints=websecure
-      - traefik.http.routers.drupal.rule=Host(`libapps-dev.uncw.edu`)
-      - traefik.http.routers.drupal.tls=true
-      - traefik.http.services.drupal.loadbalancer.server.port=80
+      - traefik.http.routers.islandora.entrypoints=websecure
+      - traefik.http.routers.islandora.rule=Host(`islandora.libapps-dev.uncw.edu`)
+      - traefik.http.routers.islandora.tls=true
+      - traefik.http.routers.islandora.priority=1
+      - traefik.http.services.islandora.loadbalancer.server.port=80
     volumes:
       - ./mounted/drupal/files:/var/www/drupal/web/sites/default/files
       - ./mounted/drupal/private:/var/www/drupal/private
@@ -99,7 +93,7 @@ services:
       - activemq
       - fcrepo
     healthcheck:
-      test: ["CMD", "curl", "-f", "-H", "Host: libapps-dev.uncw.edu", "http://localhost/"]
+      test: ["CMD", "curl", "-f", "-H", "Host: islandora.libapps-dev.uncw.edu", "http://localhost/"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -110,6 +104,7 @@ services:
     container_name: fcrepo
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       - ./env_files/jwt.env
       - ./env_files/fcrepo.env
     labels:
@@ -119,11 +114,10 @@ services:
       # so check for a file extension.
       - traefik.enable=true
       - traefik.http.routers.fcrepo.entrypoints=websecure
-      - traefik.http.routers.fcrepo.middlewares=fcrepo-strip-suffix@file
       - traefik.http.routers.fcrepo.rule=Host(`fcrepo.libapps-dev.uncw.edu`)
       - traefik.http.routers.fcrepo.tls=true
+      - traefik.http.routers.fcrepo.middlewares=fcrepo-strip-suffix@file,jumpbox-whitelist@file
       - traefik.http.services.fcrepo.loadbalancer.server.port=8080
-      - traefik.http.routers.fcrepo.middlewares=jumpbox-whitelist@file
     volumes:
       - ./mounted/fcrepo/data:/data
     depends_on:
@@ -135,13 +129,20 @@ services:
       retries: 5
     restart: unless-stopped
 
+  mariadb:
+    image: mariadb:13.0
+    container_name: mariadb
+    env_file:
+      - ./env_files/base.env
+      - ./env_files/mariadb.env
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./db_autoimport:/docker-entrypoint-initdb.d/
+    restart: unless-stopped
+
   solr:
-    # islandora/solr:7.0.18 plus the core config in ./solr/default (see ./solr/Dockerfile).
-    # After changing anything in ./solr: docker compose build solr && docker compose up -d solr
     image: uncwlibrary/islandora-solr:7.0.18
     container_name: solr
-    build:
-      context: ./solr
     volumes:
       - solr-data:/opt/solr/server/solr/default/data
     labels:
@@ -149,8 +150,8 @@ services:
       - traefik.http.routers.solr.entrypoints=websecure
       - traefik.http.routers.solr.rule=Host(`solr.libapps-dev.uncw.edu`)
       - traefik.http.routers.solr.tls=true
-      - traefik.http.services.solr.loadbalancer.server.port=8983
       - traefik.http.routers.solr.middlewares=jumpbox-whitelist@file
+      - traefik.http.services.solr.loadbalancer.server.port=8983
     env_file:
       - ./env_files/base.env
       # - ./env_files/solr.env
@@ -167,6 +168,7 @@ services:
     container_name: alpaca
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       - ./env_files/alpaca.env
     depends_on:
       - activemq
@@ -182,6 +184,7 @@ services:
     container_name: crayfits
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       # - ./env_files/crayfits.env
     restart: unless-stopped
 
@@ -203,6 +206,7 @@ services:
     container_name: homarus
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       # - ./env_files/homarus.env
     restart: unless-stopped
 
@@ -211,6 +215,7 @@ services:
     container_name: houdini
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       # - ./env_files/houdini.env
     restart: unless-stopped
 
@@ -219,6 +224,7 @@ services:
     container_name: hypercube
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       # - ./env_files/hypercube.env
     restart: unless-stopped
 
@@ -227,6 +233,7 @@ services:
     container_name: mergepdf
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       # - ./env_files/mergepdf.env
     restart: unless-stopped
 
@@ -235,6 +242,7 @@ services:
     container_name: milliner
     env_file:
       - ./env_files/base.env
+      - ./env_files/ca.env
       - ./env_files/jwt.env
       - ./env_files/milliner.env
     restart: unless-stopped
@@ -248,6 +256,5 @@ volumes:
   activemq-data: {}
   blazegraph-data: {}
   cantaloupe-data: {}
-  drupal-private-files: {}
   mariadb-data: {}
   solr-data: {}
