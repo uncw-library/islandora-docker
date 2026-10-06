@@ -1,14 +1,5 @@
 name: islandora
 
-secrets:
-    # Development certificates
-    CERT_PUBLIC_KEY:
-        file: ./dev_certs/cert.pem
-    CERT_AUTHORITY:
-        file: ./dev_certs/rootCA.pem
-    UID:
-        file: ./dev_certs/UID
-
 services:
   activemq:
     image: islandora/activemq:7.0.18
@@ -21,9 +12,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.activemq.entrypoints=websecure
-      - traefik.http.routers.activemq.rule=Host(`activemq.islandora.dev`)
+      - traefik.http.routers.activemq.rule=Host(`activemq.libapps-dev.uncw.edu`)
       - traefik.http.routers.activemq.tls=true
       - traefik.http.services.activemq.loadbalancer.server.port=8161
+      - traefik.http.routers.activemq.middlewares=jumpbox-whitelist@file
     healthcheck:
       test: ["CMD", "nc", "-z", "localhost", "61613"]
       interval: 30s
@@ -43,9 +35,10 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.blazegraph.entrypoints=websecure
-      - traefik.http.routers.blazegraph.rule=Host(`blazegraph.islandora.dev`)
+      - traefik.http.routers.blazegraph.rule=Host(`blazegraph.libapps-dev.uncw.edu`)
       - traefik.http.routers.blazegraph.tls=true
       - traefik.http.services.blazegraph.loadbalancer.server.port=8080
+      - traefik.http.routers.blazegraph.middlewares=jumpbox-whitelist@file
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/bigdata/"]
       interval: 30s
@@ -68,9 +61,10 @@ services:
       - traefik.enable=true
       - traefik.http.routers.cantaloupe.middlewares=cantaloupe-chain@file
       - traefik.http.routers.cantaloupe.entrypoints=websecure
-      - traefik.http.routers.cantaloupe.rule=Host(`islandora.dev`) && PathPrefix(`/cantaloupe`)
+      - traefik.http.routers.cantaloupe.rule=Host(`libapps-dev.uncw.edu`) && PathPrefix(`/cantaloupe`)
       - traefik.http.routers.cantaloupe.tls=true
       - traefik.http.services.cantaloupe.loadbalancer.server.port=8182
+      - traefik.http.routers.cantaloupe.middlewares=jumpbox-whitelist@file
     healthcheck:
       test: ["CMD", "sh", "-c", "curl -s localhost:8182/health | grep -q '\"color\":\"GREEN\"'"]
       interval: 30s
@@ -91,32 +85,21 @@ services:
       - ./env_files/jwt.env
       - ./env_files/jwt_private.env
       - ./env_files/drupal.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
-      - source: UID
     labels:
       - traefik.enable=true
       - traefik.http.routers.drupal.entrypoints=websecure
-      - traefik.http.routers.drupal.rule=Host(`islandora.dev`)
+      - traefik.http.routers.drupal.rule=Host(`libapps-dev.uncw.edu`)
       - traefik.http.routers.drupal.tls=true
-      - traefik.http.routers.drupal.middlewares=dev-security-headers
       - traefik.http.services.drupal.loadbalancer.server.port=80
     volumes:
       - ./mounted/drupal/files:/var/www/drupal/web/sites/default/files
-      - drupal-private-files:/var/www/drupal/private
-      # - ./drupal/rootfs/var/www/drupal/assets:/var/www/drupal/assets
-      # - ./drupal/rootfs/var/www/drupal/composer.json:/var/www/drupal/composer.json
-      # - ./drupal/rootfs/var/www/drupal/composer.lock:/var/www/drupal/composer.lock
-      # - ./drupal/rootfs/var/www/drupal/config:/var/www/drupal/config
-      # - ./drupal/rootfs/var/www/drupal/web/modules/custom:/var/www/drupal/web/modules/custom
-      # - ./drupal/rootfs/var/www/drupal/web/themes/custom:/var/www/drupal/web/themes/custom
+      - ./mounted/drupal/private:/var/www/drupal/private
     depends_on:
       - mariadb
       - activemq
       - fcrepo
     healthcheck:
-      test: ["CMD", "curl", "-f", "-H", "Host: islandora.dev", "http://localhost/"]
+      test: ["CMD", "curl", "-f", "-H", "Host: libapps-dev.uncw.edu", "http://localhost/"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -129,9 +112,6 @@ services:
       - ./env_files/base.env
       - ./env_files/jwt.env
       - ./env_files/fcrepo.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     labels:
       # Due to weird logic in `fcrepo/static/js/common.js`, do not use https
       # as it assumes it always needs to append /fcr:metadata to every request
@@ -140,9 +120,10 @@ services:
       - traefik.enable=true
       - traefik.http.routers.fcrepo.entrypoints=websecure
       - traefik.http.routers.fcrepo.middlewares=fcrepo-strip-suffix@file
-      - traefik.http.routers.fcrepo.rule=Host(`fcrepo.islandora.dev`)
+      - traefik.http.routers.fcrepo.rule=Host(`fcrepo.libapps-dev.uncw.edu`)
       - traefik.http.routers.fcrepo.tls=true
       - traefik.http.services.fcrepo.loadbalancer.server.port=8080
+      - traefik.http.routers.fcrepo.middlewares=jumpbox-whitelist@file
     volumes:
       - ./mounted/fcrepo/data:/data
     depends_on:
@@ -152,19 +133,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    restart: unless-stopped
-
-  mariadb:
-    image: mariadb:13.0
-    container_name: mariadb
-    env_file:
-      - ./env_files/base.env
-      - ./env_files/mariadb.env
-    ports:
-      - "3306:3306"
-    volumes:
-      - mariadb-data:/var/lib/mysql
-      - ./db_autoimport:/docker-entrypoint-initdb.d/
     restart: unless-stopped
 
   solr:
@@ -177,63 +145,17 @@ services:
     volumes:
       - solr-data:/opt/solr/server/solr/default/data
     labels:
-        - traefik.enable=true
-        - traefik.http.routers.solr.entrypoints=websecure
-        - traefik.http.routers.solr.rule=Host(`solr.islandora.dev`)
-        - traefik.http.routers.solr.tls=true
-        - traefik.http.services.solr.loadbalancer.server.port=8983
+      - traefik.enable=true
+      - traefik.http.routers.solr.entrypoints=websecure
+      - traefik.http.routers.solr.rule=Host(`solr.libapps-dev.uncw.edu`)
+      - traefik.http.routers.solr.tls=true
+      - traefik.http.services.solr.loadbalancer.server.port=8983
+      - traefik.http.routers.solr.middlewares=jumpbox-whitelist@file
     env_file:
       - ./env_files/base.env
       # - ./env_files/solr.env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8983/solr/"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    restart: unless-stopped
-
-  traefik:
-    image: traefik:latest
-    container_name: traefik
-    hostname: islandora.dev
-    env_file:
-      - ./env_files/base.env
-      - ./env_files/traefik.env
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik/traefik.yml:/traefik.yml:ro
-      - ./traefik/config:/config
-      - ./dev_certs:/etc/ssl/traefik:Z,ro
-    ports:
-      - "80:80"
-      - "443:443"
-    # islandora.dev resolves to 127.0.0.1 in public DNS, which inside a container
-    # is the container itself.  These aliases send in-network requests for the
-    # public hostnames (e.g. milliner -> https://islandora.dev/media/1) to traefik.
-    networks:
-      default:
-        aliases:
-          - islandora.dev
-          - activemq.islandora.dev
-          - blazegraph.islandora.dev
-          - fcrepo.islandora.dev
-          - solr.islandora.dev
-    labels:
-      - traefik.enable=true
-      # Development security headers - disable HSTS for self-signed certs
-      - traefik.http.middlewares.dev-security-headers.headers.customresponseheaders.Strict-Transport-Security=""
-      - traefik.http.middlewares.dev-security-headers.headers.customresponseheaders.X-Frame-Options="SAMEORIGIN"
-      - traefik.http.routers.traefik_https.middlewares=dev-security-headers
-
-      - traefik.http.routers.dashboard-insecure.entrypoints=web
-      - traefik.http.routers.dashboard-insecure.rule=Host(`traefik.islandora.dev`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api/`))
-      - traefik.http.routers.dashboard-insecure.service=api@internal
-      - traefik.http.routers.dashboard.entrypoints=websecure
-      - traefik.http.routers.dashboard.rule=Host(`traefik.islandora.dev`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api/`))
-      - traefik.http.routers.dashboard.service=api@internal
-      - traefik.http.routers.dashboard.tls=true
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/ping"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -246,9 +168,6 @@ services:
     env_file:
       - ./env_files/base.env
       - ./env_files/alpaca.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     depends_on:
       - activemq
     healthcheck:
@@ -264,9 +183,6 @@ services:
     env_file:
       - ./env_files/base.env
       # - ./env_files/crayfits.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     restart: unless-stopped
 
   fits:
@@ -288,9 +204,6 @@ services:
     env_file:
       - ./env_files/base.env
       # - ./env_files/homarus.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     restart: unless-stopped
 
   houdini:
@@ -299,9 +212,6 @@ services:
     env_file:
       - ./env_files/base.env
       # - ./env_files/houdini.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     restart: unless-stopped
 
   hypercube:
@@ -310,9 +220,6 @@ services:
     env_file:
       - ./env_files/base.env
       # - ./env_files/hypercube.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     restart: unless-stopped
 
   mergepdf:
@@ -321,9 +228,6 @@ services:
     env_file:
       - ./env_files/base.env
       # - ./env_files/mergepdf.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     restart: unless-stopped
 
   milliner:
@@ -333,14 +237,12 @@ services:
       - ./env_files/base.env
       - ./env_files/jwt.env
       - ./env_files/milliner.env
-    secrets:
-      - source: CERT_PUBLIC_KEY
-      - source: CERT_AUTHORITY
     restart: unless-stopped
 
 networks:
   default:
     name: traefik_net
+    external: true
 
 volumes:
   activemq-data: {}

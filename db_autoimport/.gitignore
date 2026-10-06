@@ -1,3 +1,0 @@
-# Ignore everything here (e.g. database dumps) except the user-creation scripts.
-*
-!.gitignore
