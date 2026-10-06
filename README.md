@@ -61,6 +61,10 @@ Why not just use isle-site-template as is?
    - (?? make new certs_files & new jwt_files ??)
    - `docker compose up -d && docker compose logs -f`
 
+## To build images
+   `docker build --no-cache --platform=linux/amd64 --build-arg REPOSITORY=islandora --build-arg TAG=7.0.18 -t uncwlibrary/islandora-drupal:7.0.18 ./drupal`
+   `docker build --no-cache --platform=linux/amd64 -t uncwlibrary/islandora-solr:7.0.18 ./solr`
+
 ## Production
    - use the branch matching your servername
    - set the env_files

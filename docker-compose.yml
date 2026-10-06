@@ -71,6 +71,7 @@ services:
       - traefik.http.routers.cantaloupe.rule=Host(`islandora.dev`) && PathPrefix(`/cantaloupe`)
       - traefik.http.routers.cantaloupe.tls=true
       - traefik.http.services.cantaloupe.loadbalancer.server.port=8182
+      - traefik.http.routers.cantaloupe.priority=100
     healthcheck:
       test: ["CMD", "sh", "-c", "curl -s localhost:8182/health | grep -q '\"color\":\"GREEN\"'"]
       interval: 30s
@@ -102,6 +103,7 @@ services:
       - traefik.http.routers.drupal.tls=true
       - traefik.http.routers.drupal.middlewares=dev-security-headers
       - traefik.http.services.drupal.loadbalancer.server.port=80
+      - traefik.http.routers.drupal.priority=1
     volumes:
       - ./mounted/drupal/files:/var/www/drupal/web/sites/default/files
       - drupal-private-files:/var/www/drupal/private
