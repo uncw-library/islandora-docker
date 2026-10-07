@@ -79,9 +79,9 @@ services:
       retries: 5
     restart: unless-stopped
 
-  drupal:
+  islandora:
     image: uncwlibrary/islandora-drupal:7.0.18
-    container_name: drupal
+    container_name: islandora
     build:
       context: ./drupal
       args:
@@ -98,15 +98,15 @@ services:
       - source: UID
     labels:
       - traefik.enable=true
-      - traefik.http.routers.drupal.entrypoints=websecure
-      - traefik.http.routers.drupal.rule=Host(`islandora.dev`)
-      - traefik.http.routers.drupal.tls=true
-      - traefik.http.routers.drupal.middlewares=dev-security-headers
-      - traefik.http.services.drupal.loadbalancer.server.port=80
-      - traefik.http.routers.drupal.priority=1
+      - traefik.http.routers.islandora.entrypoints=websecure
+      - traefik.http.routers.islandora.rule=Host(`islandora.dev`)
+      - traefik.http.routers.islandora.tls=true
+      - traefik.http.routers.islandora.middlewares=dev-security-headers
+      - traefik.http.services.islandora.loadbalancer.server.port=80
+      - traefik.http.routers.islandora.priority=1
     volumes:
       - ./mounted/drupal/files:/var/www/drupal/web/sites/default/files
-      - drupal-private-files:/var/www/drupal/private
+      - ./mounted/drupal/private:/var/www/drupal/private
       # - ./drupal/rootfs/var/www/drupal/assets:/var/www/drupal/assets
       # - ./drupal/rootfs/var/www/drupal/composer.json:/var/www/drupal/composer.json
       # - ./drupal/rootfs/var/www/drupal/composer.lock:/var/www/drupal/composer.lock
@@ -348,6 +348,5 @@ volumes:
   activemq-data: {}
   blazegraph-data: {}
   cantaloupe-data: {}
-  drupal-private-files: {}
   mariadb-data: {}
   solr-data: {}

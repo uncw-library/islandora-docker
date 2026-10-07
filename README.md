@@ -26,20 +26,20 @@ Why not just use isle-site-template as is?
 ## Start the dev box
    ```
    docker compose up -d && docker compose logs -f
-   docker compose exec drupal drush updatedb
-   docker compose exec drupal drush cache-rebuild
+   docker compose exec islandora drush updatedb
+   docker compose exec islandora drush cache-rebuild
    ```
 
 ## Refresh the solr index
    ```
-   docker compose exec drupal drush search-api:reset-tracker
-   docker compose exec drupal drush search-api:index
+   docker compose exec islandora drush search-api:reset-tracker
+   docker compose exec islandora drush search-api:index
    ```
 
 ## Refresh the Blazegraph index
    (this can take a long time)
    ```
-   docker compose exec drupal drush php:eval '\Drupal::service("account_switcher")->switchTo(\Drupal\user\Entity\User::load(1)); foreach (["node" => "index_node_in_triplestore", "media" => "index_media_in_triplestore", "taxonomy_term" => "index_taxonomy_term_in_the_triplestore"] as $t => $a) { $ids = \Drupal::entityQuery($t)->accessCheck(FALSE)->execute(); \Drupal::entityTypeManager()->getStorage("action")->load($a)->execute(\Drupal::entityTypeManager()->getStorage($t)->loadMultiple($ids)); echo count($ids) . " $t queued\n"; }'
+   docker compose exec islandora drush php:eval '\Drupal::service("account_switcher")->switchTo(\Drupal\user\Entity\User::load(1)); foreach (["node" => "index_node_in_triplestore", "media" => "index_media_in_triplestore", "taxonomy_term" => "index_taxonomy_term_in_the_triplestore"] as $t => $a) { $ids = \Drupal::entityQuery($t)->accessCheck(FALSE)->execute(); \Drupal::entityTypeManager()->getStorage("action")->load($a)->execute(\Drupal::entityTypeManager()->getStorage($t)->loadMultiple($ids)); echo count($ids) . " $t queued\n"; }'
    ```
 
 ## Look at your dev container's web UIs
