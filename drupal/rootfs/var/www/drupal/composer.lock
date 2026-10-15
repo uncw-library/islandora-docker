@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87d9ad2ee4a6e1a09ab2ceeb943853c9",
+    "content-hash": "87fd95aaed15773c4d151f7e34551952",
     "packages": [
         {
             "name": "adci/full-name-parser",
@@ -7431,6 +7431,47 @@
                 "source": "https://github.com/mck89/peast/tree/v1.17.7"
             },
             "time": "2026-07-21T11:56:06+00:00"
+        },
+        {
+            "name": "mjordan/islandora_workbench_integration",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mjordan/islandora_workbench_integration.git",
+                "reference": "f01ea175eb0c8b79a3eb48eaea680d11eea4df86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mjordan/islandora_workbench_integration/zipball/f01ea175eb0c8b79a3eb48eaea680d11eea4df86",
+                "reference": "f01ea175eb0c8b79a3eb48eaea680d11eea4df86",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/islandora": "^2"
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Jordan",
+                    "email": "mjordan@sfu.ca",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Islandora Workbench Integration",
+            "homepage": "https://github.com/mjordan/islandora_workbench_integration",
+            "keywords": [
+                "Islandora",
+                "drupal"
+            ],
+            "support": {
+                "issues": "https://github.com/mjordan/islandora_workbench_integration/issues",
+                "source": "https://github.com/mjordan/islandora_workbench_integration/tree/v1.2.1"
+            },
+            "time": "2026-02-05T18:01:40+00:00"
         },
         {
             "name": "ml/iri",
