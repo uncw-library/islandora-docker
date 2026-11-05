@@ -65,6 +65,9 @@ Why not just use isle-site-template as is?
    - use the branch matching your servername
    - set the env_files
    - run `./make_jwt_files.sh`
+   - `docker compose down && docker compose up -d && docker compose logs -f`
+   - `docker compose exec islandora drush updatedb`
+   - `docker compose exec islandora drush cache-rebuild`
 
 ## Self-signed
    - make a ./env_files/ca.env with the public cert
