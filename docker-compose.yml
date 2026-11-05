@@ -2,7 +2,7 @@ name: islandora
 
 services:
   activemq:
-    image: islandora/activemq:7.0.18
+    image: islandora/activemq:7.0.27
     container_name: activemq
     env_file:
       - ./env_files/base.env
@@ -47,7 +47,7 @@ services:
     restart: unless-stopped
 
   cantaloupe:
-    image: islandora/cantaloupe:7.0.18
+    image: islandora/cantaloupe:7.0.27
     container_name: cantaloupe
     env_file:
       - ./env_files/base.env
@@ -70,7 +70,7 @@ services:
     restart: unless-stopped
 
   islandora:
-    image: uncwlibrary/islandora-drupal:7.0.18
+    image: uncwlibrary/islandora-drupal:7.0.27
     container_name: islandora
     env_file:
       - ./env_files/base.env
@@ -100,7 +100,7 @@ services:
     restart: unless-stopped
 
   fcrepo:
-    image: islandora/fcrepo:7.0.18
+    image: islandora/fcrepo:7.0.27
     container_name: fcrepo
     env_file:
       - ./env_files/base.env
@@ -141,7 +141,7 @@ services:
     restart: unless-stopped
 
   solr:
-    image: uncwlibrary/islandora-solr:7.0.18
+    image: uncwlibrary/islandora-solr:7.0.27
     container_name: solr
     volumes:
       - solr-data:/opt/solr/server/solr/default/data
@@ -164,7 +164,7 @@ services:
 
   # Microservices
   alpaca:
-    image: islandora/alpaca:7.0.18
+    image: islandora/alpaca:7.0.27
     container_name: alpaca
     env_file:
       - ./env_files/base.env
@@ -180,7 +180,7 @@ services:
     restart: unless-stopped
 
   crayfits:
-    image: islandora/crayfits:7.0.18
+    image: islandora/crayfits:7.0.27
     container_name: crayfits
     env_file:
       - ./env_files/base.env
@@ -189,7 +189,7 @@ services:
     restart: unless-stopped
 
   fits:
-    image: islandora/fits:7.0.18
+    image: islandora/fits:7.0.27
     container_name: fits
     env_file:
       - ./env_files/base.env
@@ -202,7 +202,7 @@ services:
     restart: unless-stopped
 
   homarus:
-    image: islandora/homarus:7.0.18
+    image: islandora/homarus:7.0.27
     container_name: homarus
     env_file:
       - ./env_files/base.env
@@ -211,7 +211,7 @@ services:
     restart: unless-stopped
 
   houdini:
-    image: islandora/houdini:7.0.18
+    image: islandora/houdini:7.0.27
     container_name: houdini
     env_file:
       - ./env_files/base.env
@@ -220,7 +220,7 @@ services:
     restart: unless-stopped
 
   hypercube:
-    image: islandora/hypercube:7.0.18
+    image: islandora/hypercube:7.0.27
     container_name: hypercube
     env_file:
       - ./env_files/base.env
@@ -229,7 +229,7 @@ services:
     restart: unless-stopped
 
   mergepdf:
-    image: islandora/mergepdf:7.0.18
+    image: islandora/mergepdf:7.0.27
     container_name: mergepdf
     env_file:
       - ./env_files/base.env
@@ -238,7 +238,7 @@ services:
     restart: unless-stopped
 
   milliner:
-    image: islandora/milliner:7.0.18
+    image: islandora/milliner:7.0.27
     container_name: milliner
     env_file:
       - ./env_files/base.env
