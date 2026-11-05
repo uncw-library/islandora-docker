@@ -79,9 +79,9 @@ Why not just use isle-site-template as is?
 
 ## To build images
    ```
-   docker build --no-cache --platform=linux/amd64 --build-arg REPOSITORY=islandora --build-arg TAG=7.0.18 -t uncwlibrary/islandora-drupal:7.0.18 ./drupal
+   docker build --no-cache --platform=linux/amd64 --build-arg REPOSITORY=islandora --build-arg TAG=7.0.27 -t uncwlibrary/islandora-drupal:7.0.27 ./drupal
 
-   docker build --no-cache --platform=linux/amd64 -t uncwlibrary/islandora-solr:7.0.18 ./solr
+   docker build --no-cache --platform=linux/amd64 -t uncwlibrary/islandora-solr:7.0.27 ./solr
    ```
 
 ## Production

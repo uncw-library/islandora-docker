@@ -1,4 +1,4 @@
-FROM islandora/solr:7.0.18
+FROM islandora/solr:7.0.27
 # islandora/solr is Solr 10 plus the ocrhighlighting plugin and the
 # analysis-extras/extraction/langid/ltr modules that this config relies on.
 
