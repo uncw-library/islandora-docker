@@ -1,0 +1,132 @@
+/**
+ * @file
+ * Header styled to match the UNCW Library site (library.uncw.edu):
+ * white band, teal UNCW logo tile at the left, bold uppercase Lato navigation.
+ */
+
+:root {
+  --uncw-teal: #008485;
+  --uncw-teal-dark: #006666;
+  --uncw-header-text: #000;
+}
+
+/* Top utility strip: slim, white, right-aligned small links. */
+body #navbar-top {
+  background-color: #fff;
+  padding: 0.35rem 1.25rem 0;
+  justify-content: flex-end;
+  font-family: "Lato", "Open Sans", sans-serif;
+  font-size: 0.8rem;
+}
+body #navbar-top .region-secondary-menu {
+  justify-content: flex-end;
+  margin: 0;
+}
+body #navbar-top .nav-link,
+body .region-secondary-menu .menu-item a {
+  color: #555;
+  padding: 0 0.6rem;
+}
+body #navbar-top .nav-link:hover,
+body #navbar-top .nav-link:focus {
+  color: #000;
+}
+
+/* Main bar: white, logo tile hanging from the top-left corner. */
+body #navbar-main {
+  background-color: #fff;
+  align-items: flex-end;
+  padding: 0 1.25rem 0 1.25rem;
+  min-height: 3.2rem;
+  border-bottom: 1px solid #e3e3e3;
+  font-family: "Lato", "Open Sans", sans-serif;
+}
+body #navbar-main .navbar-brand {
+  /* Hide the site name text (logo carries the branding); keep it for screen readers. */
+  font-size: 0;
+  line-height: 0;
+  margin: 0 1.5rem 0 0;
+  padding: 0;
+  align-self: flex-start;
+}
+body #navbar-main .navbar-brand img {
+  width: 110px;
+  height: 110px;
+  margin-top: -2.2rem;       /* sit flush with the top of the page */
+  position: relative;
+  z-index: 10;
+  background: var(--uncw-teal);
+}
+
+/* Navigation: bold, uppercase, black. */
+body #navbar-main .navbar-nav .nav-link,
+body #navbar-main .region-primary-menu .menu-item a {
+  color: var(--uncw-header-text);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0.9rem 1.7rem;
+  letter-spacing: 0.01em;
+}
+body #navbar-main .navbar-nav .nav-link:hover,
+body #navbar-main .navbar-nav .nav-link:focus,
+body #navbar-main .region-primary-menu .menu-item a:hover,
+body #navbar-main .region-primary-menu .menu-item a.is-active,
+body #navbar-main .region-primary-menu .menu-item--active-trail a {
+  color: #000;
+  background: transparent;
+}
+
+/* Search button / primary buttons use the library teal. */
+.btn-primary {
+  background-color: var(--uncw-teal);
+  border-color: var(--uncw-teal);
+  color: #fff;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--uncw-teal-dark);
+  border-color: var(--uncw-teal-dark);
+}
+
+@media (max-width: 991.98px) {
+  body #navbar-main .navbar-brand img {
+    width: 80px;
+    height: 80px;
+    margin-top: -1.6rem;
+  }
+}
+
+/* ---------- Hero banner (library.uncw.edu main image) ---------- */
+.uncw-hero {
+  background-color: #1f3d73;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 393px;
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.uncw-hero__title {
+  color: #fff;
+  font-family: "Lato", "Open Sans", sans-serif;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+  padding: 0 1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.uncw-hero__title:hover,
+.uncw-hero__title:focus { color: #fff; text-decoration: none; }
+@media (max-width: 991.98px) {
+  .uncw-hero { min-height: 220px; background-image: url("../images/mainimage_new_small.jpg") !important; }
+  .uncw-hero__title { font-size: 2.5rem; }
+}
+
+/* Readable table header links on the gray striped tables. */
+.table thead th, .table thead th a, .views-table thead th a { color: #003366; }

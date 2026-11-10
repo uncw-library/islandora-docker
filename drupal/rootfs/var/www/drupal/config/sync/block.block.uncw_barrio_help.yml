@@ -1,0 +1,22 @@
+uuid: 62d937b3-1f8d-4b8e-b986-2c26f46fa642
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: cuJ6upG3h5j9HF7KB2VH_y4KDiawatTQXcMFGS2FU_c
+id: uncw_barrio_help
+theme: uncw_barrio
+region: highlighted
+weight: -2
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

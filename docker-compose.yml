@@ -107,12 +107,7 @@ services:
     volumes:
       - ./mounted/drupal/files:/var/www/drupal/web/sites/default/files
       - ./mounted/drupal/private:/var/www/drupal/private
-      # - ./drupal/rootfs/var/www/drupal/assets:/var/www/drupal/assets
-      # - ./drupal/rootfs/var/www/drupal/composer.json:/var/www/drupal/composer.json
-      # - ./drupal/rootfs/var/www/drupal/composer.lock:/var/www/drupal/composer.lock
-      # - ./drupal/rootfs/var/www/drupal/config:/var/www/drupal/config
-      # - ./drupal/rootfs/var/www/drupal/web/modules/custom:/var/www/drupal/web/modules/custom
-      # - ./drupal/rootfs/var/www/drupal/web/themes/custom:/var/www/drupal/web/themes/custom
+      - ./drupal/rootfs/var/www/drupal/config:/var/www/drupal/config
     depends_on:
       - mariadb
       - activemq

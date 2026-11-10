@@ -11,3 +11,4 @@ env_files/jwt_private.env
 
 # Development TLS certificates and CA key (make_cert_files.sh)
 dev_certs/
+.DS_Store

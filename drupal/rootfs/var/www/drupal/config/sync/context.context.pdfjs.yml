@@ -22,6 +22,7 @@ conditions:
       node: '@node.node_route_context:node'
     uri: 'http://mozilla.github.io/pdf.js'
     logic: and
+    naive_references: false
 reactions:
   blocks:
     id: blocks
@@ -43,6 +44,22 @@ reactions:
         context_mapping: {  }
         views_label: ''
         items_per_page: none
+        third_party_settings: {  }
+      ccc950a6-f26d-4528-9350-8fbf8de17458:
+        uuid: ccc950a6-f26d-4528-9350-8fbf8de17458
+        id: 'views_block:media_display_blocks-pdfjs_original'
+        label: ''
+        provider: views
+        label_display: visible
+        region: content_above
+        custom_id: views_block_media_display_blocks_pdfjs_original
+        theme: uncw_barrio
+        css_class: ''
+        unique: 0
+        context_id: pdfjs
+        context_mapping: {  }
+        views_label: ''
+        items_per_page: null
         third_party_settings: {  }
     include_default_blocks: 1
     saved: false

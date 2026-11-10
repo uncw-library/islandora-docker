@@ -32,6 +32,7 @@ module:
   dblog: 0
   devel: 0
   dgi_image_discovery: 0
+  dxpr_theme_helper: 0
   dynamic_page_cache: 0
   editor: 0
   eva: 0
@@ -53,6 +54,7 @@ module:
   help: 0
   history: 0
   image: 0
+  ip_range_access: 0
   islandora: 0
   islandora_audio: 0
   islandora_breadcrumbs: 0
@@ -66,6 +68,7 @@ module:
   islandora_text_extraction: 0
   islandora_text_extraction_defaults: 0
   islandora_video: 0
+  islandora_workbench_integration: 0
   jquery_ui: 0
   jquery_ui_autocomplete: 0
   jquery_ui_menu: 0
@@ -77,6 +80,7 @@ module:
   link: 0
   media: 0
   media_library: 0
+  media_library_form_element: 0
   menu_link_content: 0
   menu_ui: 0
   migrate: 0
@@ -90,7 +94,6 @@ module:
   path: 0
   path_alias: 0
   pdf: 0
-  pgsql: 0
   prepopulate: 0
   rdf: 0
   responsive_image: 0
@@ -100,7 +103,6 @@ module:
   search_api_solr: 0
   serialization: 0
   shortcut: 0
-  sqlite: 0
   syslog: 0
   system: 0
   taxonomy: 0
@@ -125,4 +127,10 @@ module:
 theme:
   olivero: 0
   claro: 0
+  stable9: 0
+  bootstrap5: 0
+  dxpr_theme: 0
+  islandora_dxpr: 0
+  bootstrap_barrio: 0
+  uncw_barrio: 0
 profile: minimal

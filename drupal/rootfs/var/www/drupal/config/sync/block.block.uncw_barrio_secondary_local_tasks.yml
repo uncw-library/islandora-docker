@@ -1,0 +1,22 @@
+uuid: 26d1f8cc-f93a-4bc7-abeb-70dc97e0ed2e
+langcode: en
+status: true
+dependencies:
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: wYoJIzQ0bNQBp4l3UiMUO8gAtmDszuvUb_ekEz3ybsU
+id: uncw_barrio_secondary_local_tasks
+theme: uncw_barrio
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

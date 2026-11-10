@@ -1,0 +1,25 @@
+uuid: 22d0de8c-95b1-4ae4-b12b-c9d0b6598af6
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: r-Uech9-KCxvXNWdo1gX-VXbU3YN_94Gcx48Ax6WH9I
+id: uncw_barrio_site_branding
+theme: uncw_barrio
+region: header
+weight: -7
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

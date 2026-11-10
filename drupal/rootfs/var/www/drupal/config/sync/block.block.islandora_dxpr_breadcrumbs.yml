@@ -1,0 +1,22 @@
+uuid: 3420c2d5-7677-402f-9f45-e6801fee137b
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - islandora_dxpr
+_core:
+  default_config_hash: c_IvX9_TBLJCplwUF_P9KmJauLCEvLxmObmWbiOyDiM
+id: islandora_dxpr_breadcrumbs
+theme: islandora_dxpr
+region: content_top
+weight: 10
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }
