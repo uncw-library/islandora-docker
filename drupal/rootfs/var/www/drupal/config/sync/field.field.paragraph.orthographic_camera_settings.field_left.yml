@@ -1,0 +1,23 @@
+uuid: 76cc95e2-2bb5-4258-b47c-a21fe6725a50
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_left
+    - paragraphs.paragraphs_type.orthographic_camera_settings
+id: paragraph.orthographic_camera_settings.field_left
+field_name: field_left
+entity_type: paragraph
+bundle: orthographic_camera_settings
+label: Left
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

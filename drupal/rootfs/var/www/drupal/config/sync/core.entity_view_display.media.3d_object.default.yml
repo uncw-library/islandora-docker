@@ -1,0 +1,125 @@
+uuid: 9f76b116-a9b3-4644-a2ca-1957e955bc6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.3d_object.field_add_default_lights
+    - field.field.media.3d_object.field_background_color
+    - field.field.media.3d_object.field_camera
+    - field.field.media.3d_object.field_customcamera
+    - field.field.media.3d_object.field_file_size
+    - field.field.media.3d_object.field_height
+    - field.field.media.3d_object.field_materials_zip
+    - field.field.media.3d_object.field_media_file
+    - field.field.media.3d_object.field_media_of
+    - field.field.media.3d_object.field_media_use
+    - field.field.media.3d_object.field_mime_type
+    - field.field.media.3d_object.field_original_name
+    - field.field.media.3d_object.field_room_environment
+    - field.field.media.3d_object.field_width
+    - media.type.3d_object
+  module:
+    - dgi_3d_viewer
+id: media.3d_object.default
+targetEntityType: media
+bundle: 3d_object
+mode: default
+content:
+  field_file_size:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_gemini_uri:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_height:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_media_file:
+    type: dgi_threejs_file_formatter
+    label: hidden
+    settings:
+      viewer_settings:
+        width: 100%
+        height: 400px
+        file_url: ''
+        container_classes:
+          - dgi-3d-viewer-canvas
+        progress_element_classes:
+          - dgi-3d-viewer-progress
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_media_of:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_media_use:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_mime_type:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_original_name:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_width:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_add_default_lights: true
+  field_background_color: true
+  field_camera: true
+  field_customcamera: true
+  field_materials_zip: true
+  field_room_environment: true
+  langcode: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

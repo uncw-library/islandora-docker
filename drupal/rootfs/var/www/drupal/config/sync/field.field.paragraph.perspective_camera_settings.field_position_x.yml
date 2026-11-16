@@ -1,0 +1,23 @@
+uuid: 6642c368-e786-4465-9da1-9f6b0edcbfeb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_position_x
+    - paragraphs.paragraphs_type.perspective_camera_settings
+id: paragraph.perspective_camera_settings.field_position_x
+field_name: field_position_x
+entity_type: paragraph
+bundle: perspective_camera_settings
+label: 'Position X'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

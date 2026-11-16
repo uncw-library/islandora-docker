@@ -1,0 +1,10 @@
+uuid: dfbd73f1-57df-4291-b335-c80f5aeae274
+langcode: en
+status: true
+dependencies: {  }
+id: perspective_camera_settings
+label: 'Perspective camera settings'
+icon_uuid: null
+icon_default: null
+description: null
+behavior_plugins: {  }

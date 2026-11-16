@@ -1,0 +1,23 @@
+uuid: 3ceec7dc-8406-4c6b-b19a-497fba764340
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_add_default_lights
+    - media.type.3d_object
+id: media.3d_object.field_add_default_lights
+field_name: field_add_default_lights
+entity_type: media
+bundle: 3d_object
+label: 'Add default lights'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

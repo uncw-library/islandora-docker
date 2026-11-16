@@ -31,10 +31,14 @@ module:
   datetime: 0
   dblog: 0
   devel: 0
+  dgi_3d_solution: 0
+  dgi_3d_viewer: 0
   dgi_image_discovery: 0
   dxpr_theme_helper: 0
   dynamic_page_cache: 0
   editor: 0
+  embargo: 0
+  entity_reference_revisions: 0
   eva: 0
   facets: 0
   facets_summary: 0
@@ -60,6 +64,7 @@ module:
   islandora_breadcrumbs: 0
   islandora_core_feature: 0
   islandora_fits: 0
+  islandora_hierarchical_access: 0
   islandora_hocr: 0
   islandora_iiif: 0
   islandora_iiif_hocr: 0
@@ -123,6 +128,7 @@ module:
   pathauto: 1
   content_translation: 10
   views: 10
+  paragraphs: 11
   minimal: 1000
 theme:
   olivero: 0

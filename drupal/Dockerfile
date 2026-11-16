@@ -14,6 +14,9 @@ RUN --mount=type=cache,id=custom-drupal-composer-${TARGETARCH},sharing=locked,ta
         'drupal/islandora_dxpr:^1.0@beta' \
         'born-digital/ip_range_access:^1.0' \
         'drupal/bootstrap_barrio:^5.5' \
+        'discoverygarden/embargo:^1.8' \
+        'discoverygarden/dgi_3d_viewer:^1.6' \
+        'discoverygarden/dgi_3d_solution:^1.0' \
         && \
     # ip_range_access declares core ^9 || ^10 only; allow Drupal 11
     sed -i 's/^core_version_requirement:.*/core_version_requirement: ^9 || ^10 || ^11/' \

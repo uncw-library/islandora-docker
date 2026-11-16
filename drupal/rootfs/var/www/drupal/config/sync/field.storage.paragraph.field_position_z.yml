@@ -1,0 +1,18 @@
+uuid: 23fd1af6-6fa3-49c8-86be-5e7c933bb34a
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_position_z
+field_name: field_position_z
+entity_type: paragraph
+type: float
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
