@@ -184,6 +184,52 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        field_note:
+          id: field_note
+          table: node__field_note
+          field: field_note
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: field
+          label: Note
+          exclude: false
+          alter:
+            alter_text: false
+            make_link: false
+            absolute: false
+            word_boundary: false
+            ellipsis: false
+            strip_tags: false
+            trim: false
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_trimmed
+          settings:
+            trim_length: 200
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
       pager:
         type: full
         options:
@@ -319,6 +365,7 @@ display:
             view: view
             title: title
             field_edtf_date_issued: field_edtf_date_issued
+            field_note: field_note
           default: title
           info:
             nid:
@@ -344,6 +391,13 @@ display:
               responsive: ''
             field_edtf_date_issued:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: priority-low
+            field_note:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -378,6 +432,7 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_edtf_date_issued'
+        - 'config:field.storage.node.field_note'
   block_1:
     id: block_1
     display_title: Block
@@ -400,3 +455,4 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_edtf_date_issued'
+        - 'config:field.storage.node.field_note'
