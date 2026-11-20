@@ -11,7 +11,7 @@ secrets:
 
 services:
   activemq:
-    image: islandora/activemq:7.0.27
+    image: islandora/activemq:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: activemq
     env_file:
       - ./env_files/base.env
@@ -54,7 +54,7 @@ services:
     restart: unless-stopped
 
   cantaloupe:
-    image: islandora/cantaloupe:7.0.27
+    image: islandora/cantaloupe:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: cantaloupe
     env_file:
       - ./env_files/base.env
@@ -80,13 +80,13 @@ services:
     restart: unless-stopped
 
   islandora:
-    image: uncwlibrary/islandora-drupal:7.0.27
+    image: uncwlibrary/islandora-drupal:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: islandora
     build:
       context: ./drupal
       args:
         REPOSITORY: islandora
-        TAG: 7.0.27
+        TAG: ${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     env_file:
       - ./env_files/base.env
       - ./env_files/jwt.env
@@ -120,7 +120,7 @@ services:
     restart: unless-stopped
 
   fcrepo:
-    image: islandora/fcrepo:7.0.27
+    image: islandora/fcrepo:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: fcrepo
     env_file:
       - ./env_files/base.env
@@ -165,12 +165,15 @@ services:
     restart: unless-stopped
 
   solr:
-    # islandora/solr:7.0.27 plus the core config in ./solr/default (see ./solr/Dockerfile).
+    # islandora/solr:${ISLANDORA_TAG} plus the core config in ./solr/default (see ./solr/Dockerfile).
     # After changing anything in ./solr: docker compose build solr && docker compose up -d solr
-    image: uncwlibrary/islandora-solr:7.0.27
+    image: uncwlibrary/islandora-solr:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: solr
     build:
       context: ./solr
+      args:
+        REPOSITORY: islandora
+        TAG: ${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     volumes:
       - solr-data:/opt/solr/server/solr/default/data
     labels:
@@ -238,7 +241,7 @@ services:
 
   # Microservices
   alpaca:
-    image: islandora/alpaca:7.0.27
+    image: islandora/alpaca:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: alpaca
     env_file:
       - ./env_files/base.env
@@ -256,7 +259,7 @@ services:
     restart: unless-stopped
 
   crayfits:
-    image: islandora/crayfits:7.0.27
+    image: islandora/crayfits:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: crayfits
     env_file:
       - ./env_files/base.env
@@ -267,7 +270,7 @@ services:
     restart: unless-stopped
 
   fits:
-    image: islandora/fits:7.0.27
+    image: islandora/fits:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: fits
     env_file:
       - ./env_files/base.env
@@ -280,7 +283,7 @@ services:
     restart: unless-stopped
 
   homarus:
-    image: islandora/homarus:7.0.27
+    image: islandora/homarus:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: homarus
     env_file:
       - ./env_files/base.env
@@ -291,7 +294,7 @@ services:
     restart: unless-stopped
 
   houdini:
-    image: islandora/houdini:7.0.27
+    image: islandora/houdini:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: houdini
     env_file:
       - ./env_files/base.env
@@ -302,7 +305,7 @@ services:
     restart: unless-stopped
 
   hypercube:
-    image: islandora/hypercube:7.0.27
+    image: islandora/hypercube:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: hypercube
     env_file:
       - ./env_files/base.env
@@ -313,7 +316,7 @@ services:
     restart: unless-stopped
 
   mergepdf:
-    image: islandora/mergepdf:7.0.27
+    image: islandora/mergepdf:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: mergepdf
     env_file:
       - ./env_files/base.env
@@ -324,7 +327,7 @@ services:
     restart: unless-stopped
 
   milliner:
-    image: islandora/milliner:7.0.27
+    image: islandora/milliner:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: milliner
     env_file:
       - ./env_files/base.env
