@@ -10,6 +10,22 @@
     },
     "repositories": [
         {
+            "type": "package",
+            "package": {
+                "name": "drupal/migrate_directory",
+                "version": "2.x-dev",
+                "type": "drupal-module",
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/project/migrate_directory.git",
+                    "reference": "2.x"
+                },
+                "require": {
+                    "drupal/core": "^8 || ^9 || ^10 || ^11"
+                }
+            }
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
@@ -20,7 +36,7 @@
                 "version": "6",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "https://github.com/mozilla/pdf.js/releases/download/v6.2.108/pdfjs-6.2.108-dist.zip",
+                    "url": "https://github.com/mozilla/pdf.js/releases/download/v6.4.299/pdfjs-6.4.299-dist.zip",
                     "type": "zip"
                 }
             }
@@ -31,11 +47,15 @@
         "born-digital/islandora_iiif_hocr": "^2.0",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
+        "discoverygarden/dgi_3d_solution": "^1.0",
+        "discoverygarden/dgi_3d_viewer": "^1.6",
         "discoverygarden/dgi_image_discovery": "^1",
+        "discoverygarden/embargo": "^1.8",
         "discoverygarden/islandora_hocr": "^1.4",
         "drupal/admin_toolbar": "^3.1",
         "drupal/advanced_search": "^2.1",
         "drupal/better_exposed_filters": "^7.0",
+        "drupal/bootstrap_barrio": "^5.5",
         "drupal/citation_select": "^2.0@beta",
         "drupal/coi": "^4.0",
         "drupal/config_update": "^2.0@alpha",
@@ -51,6 +71,7 @@
         "drupal/fpa": "^4.0",
         "drupal/hal": "^1.0||^2.0",
         "drupal/islandora": "^2.12.3",
+        "drupal/islandora_dxpr": "^1.0@beta",
         "drupal/islandora_mirador": "^3",
         "drupal/openseadragon": "^3",
         "drupal/pathauto": "^1.12",
@@ -67,7 +88,7 @@
         "islandora-rdm/islandora_fits": "dev-8.x-1.x as 1.x-dev",
         "islandora/views_nested_details": "^1.0",
         "library/pdf.js": "^6",
-        "mjordan/islandora_workbench_integration": "^1.2"
+        "mjordan/islandora_workbench_integration": "^1"
     },
     "conflict": {
         "drupal/drupal": "*",
@@ -84,7 +105,15 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "symfony/runtime": true
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "policy": {
+            "advisories": {
+                "ignore-id": [
+                    "PKSA-w9tt-7782-78jx",
+                    "PKSA-pwh8-d4fr-nywn"
+                ]
+            }
+        }
     },
     "extra": {
         "drupal-scaffold": {
@@ -98,7 +127,6 @@
                     "append": "assets/patches/default_settings.txt"
                 }
             }
-
         },
         "installer-paths": {
             "web/core": [
@@ -133,8 +161,21 @@
             "born-digital/islandora_iiif_hocr": {
                 "d11": "assets/patches/born-digital/islandora_iiif_hocr/d11.patch"
             },
+            "drupal/islandora": {
+                "IIIF manifest: encode the Cantaloupe identifier once (fixes %2520 for filenames with spaces)": "assets/patches/drupal/islandora/iiif-manifest-double-encoding.patch",
+                "IIIF info: encode the Cantaloupe identifier once": "assets/patches/drupal/islandora/iiif-info-double-encoding.patch"
+            },
             "drupal/jwt": {
                 "d11": "assets/patches/drupal/jwt/d11.patch"
+            },
+            "drupal/migrate_directory": {
+                "Allow Drupal 11 (core requirement, return types)": "assets/patches/drupal/migrate_directory/d11.patch"
+            },
+            "drupal/openseadragon": {
+                "OpenSeadragon tile source: encode the Cantaloupe identifier once": "assets/patches/drupal/openseadragon/tile-source-double-encoding.patch"
+            },
+            "mjordan/islandora_workbench_integration": {
+                "Media view access: load media when only the ID is passed (restores rel=alternate links, fixes Milliner 500)": "assets/patches/mjordan/islandora_workbench_integration/media-view-access-id.patch"
             },
             "twistor/flysystem-stream-wrapper": {
                 "PHP 8.2 deprecation warning": "assets/patches/flysystem-stream-wrapper.patch"

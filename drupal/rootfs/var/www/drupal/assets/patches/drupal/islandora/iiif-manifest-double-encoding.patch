@@ -1,0 +1,16 @@
+diff --git a/modules/islandora_iiif/src/Plugin/views/style/IIIFManifest.php b/modules/islandora_iiif/src/Plugin/views/style/IIIFManifest.php
+index c7a05be..f0092e8 100644
+--- a/modules/islandora_iiif/src/Plugin/views/style/IIIFManifest.php
++++ b/modules/islandora_iiif/src/Plugin/views/style/IIIFManifest.php
+@@ -331,7 +331,10 @@ class IIIFManifest extends StylePluginBase {
+           }
+ 
+           $mime_type = $image->entity->getMimeType();
+-          $iiif_url = rtrim($iiif_address, '/') . '/' . urlencode($file_url);
++          // $file_url is already URL-encoded (e.g. "a%20b.png"); decode it
++          // first so the identifier is encoded exactly once, otherwise spaces
++          // become %2520 and Cantaloupe/Jetty rejects the request.
++          $iiif_url = rtrim($iiif_address, '/') . '/' . rawurlencode(rawurldecode($file_url));
+           $full_image_url = $this->buildFullImageUrl($iiif_url);
+           $thumbnail_url = $this->buildThumbnailUrl($iiif_url);
+           $iiif_service = $this->getImageServiceDescriptor($iiif_url);

@@ -44,6 +44,23 @@ reactions:
         views_label: ''
         items_per_page: none
         third_party_settings: {  }
+      1f192a60-de27-4a08-9519-427378e6ae84:
+        uuid: 1f192a60-de27-4a08-9519-427378e6ae84
+        id: 'views_block:media_display_blocks-openseadragon'
+        label: ''
+        provider: views
+        label_display: '0'
+        region: content_above
+        weight: '0'
+        custom_id: views_block_media_display_blocks_openseadragon_barrio
+        theme: uncw_barrio
+        css_class: ''
+        unique: 0
+        context_id: openseadragon_single_page_
+        context_mapping: {  }
+        views_label: ''
+        items_per_page: none
+        third_party_settings: {  }
     include_default_blocks: 1
     saved: false
 weight: -6

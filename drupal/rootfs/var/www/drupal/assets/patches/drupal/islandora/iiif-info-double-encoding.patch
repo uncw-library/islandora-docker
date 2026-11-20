@@ -1,0 +1,14 @@
+diff --git a/modules/islandora_iiif/src/IiifInfo.php b/modules/islandora_iiif/src/IiifInfo.php
+index f2b1138..52e1f65 100644
+--- a/modules/islandora_iiif/src/IiifInfo.php
++++ b/modules/islandora_iiif/src/IiifInfo.php
+@@ -92,7 +92,8 @@ class IiifInfo {
+     }
+ 
+     $iiif_address = $this->iiifConfig->get('iiif_server');
+-    $iiif_url = rtrim($iiif_address, '/') . '/' . urlencode($file_url);
++    // $file_url is already URL-encoded; encode once, or spaces become %2520.
++    $iiif_url = rtrim($iiif_address, '/') . '/' . rawurlencode(rawurldecode($file_url));
+ 
+     return $iiif_url;
+   }
