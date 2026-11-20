@@ -3,7 +3,7 @@
 Downstream output of https://github.com/Islandora-Devops/isle-site-template.  Heavily modified & trimmed.
 
 ## Update steps
-   - check upstream for the latest image versions.  Bump the docker-compose to those versions.
+   - check upstream for the latest image versions.  Bump the .env to those versions.
    - check for upstream changes to env_files variables.
    - check for upstream code/config changes.
 
@@ -78,11 +78,16 @@ Why not just use isle-site-template as is?
    ```
 
 ## To build images
+   The Islandora version lives in one place: `ISLANDORA_TAG` in `.env` (next to docker-compose.yml). Every `islandora/*` image, the custom drupal/solr image tags, and their `TAG` build args use it, so to upgrade change that one line, then:
    ```
-   docker build --no-cache --platform=linux/amd64 --build-arg REPOSITORY=islandora --build-arg TAG=7.0.27 -t uncwlibrary/islandora-drupal:7.0.27 ./drupal
-
-   docker build --no-cache --platform=linux/amd64 -t uncwlibrary/islandora-solr:7.0.27 ./solr
+   docker compose build && docker compose up -d
    ```
+   For a fully fresh build (ignore cached layers and re-pull the base images):
+   ```
+   docker compose build --no-cache --pull
+   ```
+   `docker compose config` shows the resolved values. Note `.env` is only read by `docker compose`; plain
+   `docker build` still needs `--build-arg TAG=...`.
 
 ## Production
    - use the branch matching your servername

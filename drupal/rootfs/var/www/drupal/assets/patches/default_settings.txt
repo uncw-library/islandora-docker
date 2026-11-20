@@ -68,6 +68,8 @@ $databases['default']['default'] = [
   'prefix' => '',
   'driver' => 'mysql',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+  // Drupal's recommended transaction isolation level for MySQL/MariaDB.
+  'isolation_level' => 'READ COMMITTED',
 ];
 
 // only config fedora flysystem driver if the drupal service set a fcrepo URL
