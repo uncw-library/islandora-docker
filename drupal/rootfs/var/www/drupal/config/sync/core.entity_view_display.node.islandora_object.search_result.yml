@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.search_result
     - field.field.node.islandora_object.field_abstract
     - field.field.node.islandora_object.field_alt_title
+    - field.field.node.islandora_object.field_cdm_metadata
     - field.field.node.islandora_object.field_classification
     - field.field.node.islandora_object.field_coordinates
     - field.field.node.islandora_object.field_coordinates_text
@@ -191,6 +192,7 @@ hidden:
   display_media_service_file: true
   display_media_thumbnail: true
   field_alt_title: true
+  field_cdm_metadata: true
   field_classification: true
   field_coordinates: true
   field_coordinates_text: true

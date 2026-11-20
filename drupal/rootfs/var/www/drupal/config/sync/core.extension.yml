@@ -58,7 +58,6 @@ module:
   help: 0
   history: 0
   image: 0
-  ip_range_access: 0
   islandora: 0
   islandora_audio: 0
   islandora_breadcrumbs: 0

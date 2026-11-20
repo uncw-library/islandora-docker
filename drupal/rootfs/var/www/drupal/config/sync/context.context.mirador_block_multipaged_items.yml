@@ -43,6 +43,22 @@ reactions:
         context_mapping: {  }
         iiif_manifest_url: '/node/[node:nid]/book-manifest'
         third_party_settings: {  }
+      7c3a1e52-9b4d-4f6a-8e21-5d0b3a9c4f17:
+        uuid: 7c3a1e52-9b4d-4f6a-8e21-5d0b3a9c4f17
+        id: mirador_block
+        label: 'Mirador block'
+        provider: islandora_mirador
+        label_display: '0'
+        region: content_above
+        weight: '0'
+        custom_id: mirador_block_barrio
+        theme: uncw_barrio
+        css_class: ''
+        unique: 0
+        context_id: mirador_block_multipaged_items
+        context_mapping: {  }
+        iiif_manifest_url: '/node/[node:nid]/book-manifest'
+        third_party_settings: {  }
     include_default_blocks: 1
     saved: false
 weight: -8
