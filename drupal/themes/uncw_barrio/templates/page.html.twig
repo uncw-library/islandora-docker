@@ -127,6 +127,9 @@
               <main{{ content_attributes }}>
                 <section class="section">
                   <a href="#main-content" id="main-content" tabindex="-1"></a>
+                  {% if node_edit_button %}
+                    <div class="uncw-edit-button">{{ node_edit_button }}</div>
+                  {% endif %}
                   {{ page.content_above }}
                   {{ page.content }}
                 </section>

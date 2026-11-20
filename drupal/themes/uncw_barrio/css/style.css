@@ -79,3 +79,9 @@ form fieldset legend {
 #edit-warning > div {
     position: relative;
 }
+
+/* "Edit" button on a node's full page (see uncw_barrio_preprocess_page()). */
+.uncw-edit-button {
+    text-align: right;
+    margin-bottom: 0.5rem;
+}
