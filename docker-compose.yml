@@ -327,7 +327,11 @@ services:
     restart: unless-stopped
 
   milliner:
-    image: islandora/milliner:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
+    image: uncwlibrary/islandora-milliner:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}-php84-patch
+    build:
+      context: ./milliner
+      args:
+        TAG: ${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: milliner
     env_file:
       - ./env_files/base.env
