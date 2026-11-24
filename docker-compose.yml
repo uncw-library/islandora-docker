@@ -238,7 +238,7 @@ services:
     restart: unless-stopped
 
   milliner:
-    image: islandora/milliner:7.0.27
+    image: uncwlibrary/islandora-milliner:7.0.27-php84-patch
     container_name: milliner
     env_file:
       - ./env_files/base.env
