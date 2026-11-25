@@ -1,0 +1,22 @@
+uuid: 876bd049-3d60-457c-b126-7069ace952b5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: B9ReQ00qmyBhCAb8YS81adWkw4AD-y-gxyA2erkZlRU
+id: uncw_barrio_messages
+theme: uncw_barrio
+region: highlighted
+weight: -6
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

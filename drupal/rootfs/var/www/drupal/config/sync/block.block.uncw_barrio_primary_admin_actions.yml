@@ -1,0 +1,20 @@
+uuid: e0e27b58-c3d4-4d8b-97c3-8dea87df70d3
+langcode: en
+status: true
+dependencies:
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: eMyJodtHimmih8yLYQGN_5iEJwXMfNCfQkAs0aW6i_Q
+id: uncw_barrio_primary_admin_actions
+theme: uncw_barrio
+region: content
+weight: -6
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

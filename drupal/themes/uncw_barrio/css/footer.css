@@ -1,0 +1,36 @@
+/**
+ * @file
+ * Footer copied from library.uncw.edu: navy band, white text, stacked UNCW
+ * logo + contact, two link lists, social icons, bottom links, FDLP logo.
+ */
+.site-footer { background: #003366; padding: 0; }
+#wrapFooter {
+  width: 100%;
+  background-color: #003366;
+  color: #fff;
+  padding-top: 40px;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+}
+#wrapFooter p { color: #fff; margin: 0; padding: 0; text-align: center; font-family: "Lato", Helvetica, Arial, sans-serif; }
+#wrapFooter a { text-decoration: none; color: #fff; font-size: 16px; }
+#wrapFooter a:hover, #wrapFooter a:focus { text-decoration: underline; }
+#wrapFooter h2 { color: #fff; margin: 20px 0; font-weight: bold; font-size: 21px; letter-spacing: normal; }
+#wrapFooter ul { margin: 0; padding: 0; }
+#footer-cols { display: flex; flex-direction: row; align-items: center; gap: 150px; justify-content: center; }
+.responsiveLists { display: flex; flex-direction: row; gap: 150px; text-align: left; }
+.f-col-two ul li, .f-col-three ul li { line-height: 1.8em; list-style-type: none; }
+.f-col-one p { text-transform: uppercase; font-weight: bold; }
+.footerSocialIcons { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 50px; }
+.f-col-four { display: flex; flex-direction: column; align-items: center; gap: 50px; }
+.f-col-four img { width: 40px; height: 40px; }
+#bottom-nav { display: flex; flex-direction: row; align-items: center; justify-content: center; text-align: center; margin: 50px 0; padding-bottom: 30px; }
+#bottom-nav p { line-height: 1.4em; }
+#bottom-nav a { padding: 10px; }
+#fdlp { background: #fff; text-align: center; padding: 15px 0; }
+#footer-main-left img { max-width: 100%; height: auto; }
+@media (max-width: 991.98px) {
+  #footer-cols { flex-direction: column; align-items: center; gap: 10px; }
+  .responsiveLists { flex-direction: column; gap: 0; }
+  #wrapFooter p, .responsiveLists { text-align: left; }
+  #wrapFooter { padding-left: 5%; }
+}

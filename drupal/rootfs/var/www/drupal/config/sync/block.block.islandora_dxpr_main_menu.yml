@@ -1,0 +1,27 @@
+uuid: 1e3edd1e-87ba-4c0c-b193-ddc9300277da
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - islandora_dxpr
+_core:
+  default_config_hash: 1SQECa3FwlsLz2fEzamhrWNTN_A3VOpBSzpCqGx7-7I
+id: islandora_dxpr_main_menu
+theme: islandora_dxpr
+region: navigation_collapsible
+weight: 10
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 9
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,22 @@
+uuid: f8764391-4eef-48b9-96ff-585613af5fd3
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - islandora_dxpr
+_core:
+  default_config_hash: 9IWh3Gpt_SloxZaHufbnKtlimR_7VZRK99EE0eU5MlY
+id: islandora_dxpr_messages
+theme: islandora_dxpr
+region: content
+weight: -50
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

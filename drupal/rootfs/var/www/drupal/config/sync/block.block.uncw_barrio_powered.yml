@@ -1,0 +1,22 @@
+uuid: 18daad1a-58f2-4f38-a5d0-82be0602317d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: y6rMyIT39F4xxy-gnp-H2Nokd7CMD_fR_iXHVLVGsro
+id: uncw_barrio_powered
+theme: uncw_barrio
+region: footer_fifth
+weight: -7
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

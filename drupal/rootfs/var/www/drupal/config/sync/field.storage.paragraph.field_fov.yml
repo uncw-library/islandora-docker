@@ -1,0 +1,18 @@
+uuid: 30e0ef0c-e1d7-4497-bf61-bd33b0d2debd
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_fov
+field_name: field_fov
+entity_type: paragraph
+type: float
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

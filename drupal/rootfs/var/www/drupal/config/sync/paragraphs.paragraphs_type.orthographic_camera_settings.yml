@@ -1,0 +1,10 @@
+uuid: fdcb5e91-a0ab-47c9-8b09-67cf2b65a9e7
+langcode: en
+status: true
+dependencies: {  }
+id: orthographic_camera_settings
+label: 'Orthographic camera settings'
+icon_uuid: null
+icon_default: null
+description: null
+behavior_plugins: {  }

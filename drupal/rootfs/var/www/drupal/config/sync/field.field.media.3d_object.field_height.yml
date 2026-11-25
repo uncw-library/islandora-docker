@@ -1,0 +1,23 @@
+uuid: f58b5d22-a20b-4b34-878a-ab24bceec87e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_height
+    - media.type.3d_object
+id: media.3d_object.field_height
+field_name: field_height
+entity_type: media
+bundle: 3d_object
+label: Height
+description: 'For TIFF and JPEG2000 files, populated by the IIIF manifest generator as a performance improvement.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

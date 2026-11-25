@@ -1,0 +1,23 @@
+uuid: 3c305650-3705-4bdc-a575-0d45ef896a46
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_room_environment
+    - media.type.3d_object
+id: media.3d_object.field_room_environment
+field_name: field_room_environment
+entity_type: media
+bundle: 3d_object
+label: 'Room environment'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

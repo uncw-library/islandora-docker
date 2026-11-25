@@ -1,0 +1,23 @@
+uuid: 4dc7d746-ee12-46ab-b2d4-20e7d3eebc01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_rotation_y
+    - paragraphs.paragraphs_type.orthographic_camera_settings
+id: paragraph.orthographic_camera_settings.field_rotation_y
+field_name: field_rotation_y
+entity_type: paragraph
+bundle: orthographic_camera_settings
+label: 'Rotation Y'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

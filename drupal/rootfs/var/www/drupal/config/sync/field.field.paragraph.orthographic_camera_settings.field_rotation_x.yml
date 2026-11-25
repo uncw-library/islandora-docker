@@ -1,0 +1,23 @@
+uuid: c52fd8b9-ec1e-4122-8de7-08f39f4df106
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_rotation_x
+    - paragraphs.paragraphs_type.orthographic_camera_settings
+id: paragraph.orthographic_camera_settings.field_rotation_x
+field_name: field_rotation_x
+entity_type: paragraph
+bundle: orthographic_camera_settings
+label: 'Rotation X'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

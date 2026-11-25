@@ -1,0 +1,23 @@
+uuid: 3a68180f-7586-40fc-ab22-58a26ace5eab
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_far
+    - paragraphs.paragraphs_type.perspective_camera_settings
+id: paragraph.perspective_camera_settings.field_far
+field_name: field_far
+entity_type: paragraph
+bundle: perspective_camera_settings
+label: Far
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

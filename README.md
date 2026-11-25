@@ -3,7 +3,7 @@
 Downstream output of https://github.com/Islandora-Devops/isle-site-template.  Heavily modified & trimmed.
 
 ## Update steps
-   - check upstream for the latest image versions.  Bump the docker-compose to those versions.
+   - check upstream for the latest image versions.  Bump the .env to those versions.
    - check for upstream changes to env_files variables.
    - check for upstream code/config changes.
 
@@ -13,62 +13,85 @@ Why not just use isle-site-template as is?
    - simpler docker-compose.yml
 
 ## Dev box
-   - copy ./sample_env_files to ./env_files
-   - set the values:
-      - make equal values for MATCH_x items across the files
-      - change CHANGEME items to a secret value
+   - `unzip env_files.zip`
+   - set the values in env_files folder (not git committed):
+      - use same values for MATCH_x items across the files
+      - change CHANGEME items to a unique value
       - others can stay as they are
    - make the ./env_files jwt files
       - run in bash shell:  `source make_jwt_files.sh`
    - make the ./dev_certs files
-      - run in bash shell: `sudo ./make_cert_files.sh`
+      - run in bash shell: `source make_cert_files.sh`
+
+## Start the dev box
+   ```
+   docker compose up -d && docker compose logs -f
+   docker compose exec islandora drush updatedb
+   docker compose exec islandora drush cache-rebuild
+   ```
 
 ## Refresh the solr index
-   - `docker compose exec islandora drush search-api:reset-tracker`
-   - `docker compose exec islandora drush search-api:index`
+   ```
+   docker compose exec islandora drush search-api:reset-tracker
+   docker compose exec islandora drush search-api:index
+   ```
 
 ## Refresh the Blazegraph index
-   - `docker compose exec islandora drush php:eval '\Drupal::service("account_switcher")->switchTo(\Drupal\user\Entity\User::load(1)); foreach (["node" => "index_node_in_triplestore", "media" => "index_media_in_triplestore", "taxonomy_term" => "index_taxonomy_term_in_the_triplestore"] as $t => $a) { $ids = \Drupal::entityQuery($t)->accessCheck(FALSE)->execute(); \Drupal::entityTypeManager()->getStorage("action")->load($a)->execute(\Drupal::entityTypeManager()->getStorage($t)->loadMultiple($ids)); echo count($ids) . " $t queued\n"; }'`
+   (this can take a long time)
+   ```
+   docker compose exec islandora drush php:eval '\Drupal::service("account_switcher")->switchTo(\Drupal\user\Entity\User::load(1)); foreach (["node" => "index_node_in_triplestore", "media" => "index_media_in_triplestore", "taxonomy_term" => "index_taxonomy_term_in_the_triplestore"] as $t => $a) { $ids = \Drupal::entityQuery($t)->accessCheck(FALSE)->execute(); \Drupal::entityTypeManager()->getStorage("action")->load($a)->execute(\Drupal::entityTypeManager()->getStorage($t)->loadMultiple($ids)); echo count($ids) . " $t queued\n"; }'
+   ```
 
 ## Look at your dev container's web UIs
-   - Traefik: https://traefik.libapps-dev.uncw.edu/dashboard/#/
-   - Islandora: https://islandora.libapps-dev.uncw.edu/admin/content
-   - Fedora: https://fcrepo.libapps-dev.uncw.edu/fcrepo/rest
-   - Blazegraph: https://blazegraph.libapps-dev.uncw.edu/bigdata/#query
+   - Traefik: https://traefik.islandora.dev/dashboard/#/
+   - Drupal: https://islandora.dev/admin/content
+   - Fedora: https://fcrepo.islandora.dev/fcrepo/rest
+   - Blazegraph: https://blazegraph.islandora.dev/bigdata/#query
       - First select the 'islandora' namespace (Namespaces tab -> "Use" next to islandora).
       - The page defaults to the empty 'kb' namespace, so queries there return 0 results.
-      - An example query:
-           
-               PREFIX pcdm: <http://pcdm.org/models#>
-               PREFIX dcterms: <http://purl.org/dc/terms/>
-
-               SELECT ?item ?title ?type
-               WHERE {
-               ?item a ?type .
-               FILTER(?type IN (pcdm:Collection, pcdm:Object))
-               OPTIONAL { ?item dcterms:title ?title }
-               }
-               ORDER BY ?type ?title
-   - ActiveMQ: https://activemq.libapps-dev.uncw.edu/admin/queues.jsp
-   - Cantaloupe: https://islandora.libapps-dev.uncw.edu/cantaloupe/health
-   - Solr: https://solr.libapps-dev.uncw.edu/solr/#/default/query
+      - An example SPARQL query:
+         ```
+         PREFIX pcdm: <http://pcdm.org/models#>
+         PREFIX dcterms: <http://purl.org/dc/terms/>
+         SELECT ?item ?title ?type
+         WHERE {
+            ?item a ?type .
+            FILTER(?type IN (pcdm:Collection, pcdm:Object))
+            OPTIONAL { ?item dcterms:title ?title }
+         }
+         ORDER BY ?type ?title
+         ```
+   - ActiveMQ: https://activemq.islandora.dev/admin/queues.jsp    
+      - user "admin"
+      - password from ./env_files/activemq.env
+   - Cantaloupe: https://islandora.dev/cantaloupe/health
+   - Solr: https://solr.islandora.dev/solr/#/default/query
 
 
 
 ## Hard refresh
-   - `docker compose down -v`
-   - `rm -r ./mounted`
-   - (?? make new certs_files & new jwt_files ??)
-   - `docker compose up -d && docker compose logs -f`
+   ```
+   docker compose down -v
+   rm -r ./mounted
+   (?? make new certs_files & new jwt_files ??)
+   docker compose up -d && docker compose logs -f
+   ```
+
+## To build images
+   The Islandora version lives in one place: `ISLANDORA_TAG` in `.env` (next to docker-compose.yml). Every `islandora/*` image, the custom drupal/solr image tags, and their `TAG` build args use it, so to upgrade change that one line, then:
+   ```
+   docker compose build && docker compose up -d
+   ```
+   For a fully fresh build (ignore cached layers and re-pull the base images):
+   ```
+   docker compose build --no-cache --pull
+   ```
+   `docker compose config` shows the resolved values. Note `.env` is only read by `docker compose`; plain
+   `docker build` still needs `--build-arg TAG=...`.
 
 ## Production
    - use the branch matching your servername
    - set the env_files
    - run `./make_jwt_files.sh`
-   - `docker compose down && docker compose up -d && docker compose logs -f`
-   - `docker compose exec islandora drush updatedb`
-   - `docker compose exec islandora drush cache-rebuild`
 
-## Self-signed
-   - make a ./env_files/ca.env with the public cert
 

@@ -1,0 +1,5 @@
+_core:
+  default_config_hash: mGzlYUKZCev9dNRhyLAdeysyZ5F-lb7qeoNnqv6PUCM
+openssl_executable: openssl
+spool_dir: 'temporary://'
+suppress_direct_indexing_during_migrations: true

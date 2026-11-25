@@ -1,0 +1,23 @@
+uuid: bca5aa85-b0d6-4854-a5b4-053f65322178
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_fov
+    - paragraphs.paragraphs_type.perspective_camera_settings
+id: paragraph.perspective_camera_settings.field_fov
+field_name: field_fov
+entity_type: paragraph
+bundle: perspective_camera_settings
+label: FOV
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

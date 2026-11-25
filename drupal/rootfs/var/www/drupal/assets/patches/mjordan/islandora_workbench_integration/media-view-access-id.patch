@@ -1,0 +1,44 @@
+diff --git a/src/Access/MediaViewAccess.php b/src/Access/MediaViewAccess.php
+index a08c3b9..094913d 100644
+--- a/src/Access/MediaViewAccess.php
++++ b/src/Access/MediaViewAccess.php
+@@ -4,6 +4,7 @@ namespace Drupal\islandora_workbench_integration\Access;
+ 
+ use Drupal\Core\Access\AccessResult;
+ use Drupal\Core\Routing\Access\AccessInterface;
++use Drupal\Core\Routing\RouteMatchInterface;
+ use Drupal\Core\Session\AccountInterface;
+ use Drupal\media\MediaInterface;
+ use Psr\Log\LoggerInterface;
+@@ -40,16 +41,27 @@ class MediaViewAccess implements AccessInterface {
+    *   The user account to check access for.
+    * @param \Symfony\Component\HttpFoundation\Request|null $request
+    *   The current request if available.
++   * @param \Drupal\Core\Routing\RouteMatchInterface|null $route_match
++   *   The route match, used when there is no request.
+    *
+    * @return \Drupal\Core\Access\AccessResult
+    *   Access result.
+    */
+-  public function access(AccountInterface $account, ?Request $request = NULL) {
+-    if ($request === NULL) {
+-      // If no request is provided, we cannot determine access.
++  public function access(AccountInterface $account, ?Request $request = NULL, ?RouteMatchInterface $route_match = NULL) {
++    // AccessManager::checkNamedRoute() (used e.g. by Islandora's
++    // LinkHeaderSubscriber to decide whether to emit rel="alternate" links)
++    // calls access checks with NO request, only a route match. Use the route
++    // match's (already upcast) media parameter when there is no request.
++    if ($request !== NULL) {
++      $media = $request->attributes->get('media');
++    }
++    elseif ($route_match !== NULL) {
++      $media = $route_match->getParameter('media');
++    }
++    else {
++      // Neither a request nor a route match: we cannot determine access.
+       return AccessResult::neutral();
+     }
+-    $media = $request->attributes->get('media');
+ 
+     if (!$media) {
+       // If no media attribute is provided, we cannot determine access.

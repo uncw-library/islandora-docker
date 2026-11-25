@@ -1,0 +1,22 @@
+uuid: 623a775f-bf93-41dd-a75a-19f8729d7ab2
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - islandora_dxpr
+_core:
+  default_config_hash: _BQVQwhNYfU8wEnhzB8epmaOJs3a5R-itFabCOu-Zvk
+id: islandora_dxpr_help
+theme: islandora_dxpr
+region: help
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

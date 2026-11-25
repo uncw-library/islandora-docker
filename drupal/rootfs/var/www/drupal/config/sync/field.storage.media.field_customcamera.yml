@@ -1,0 +1,19 @@
+uuid: d87c3937-d9e7-4981-bfa4-a43ac32d0701
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.field_customcamera
+field_name: field_customcamera
+entity_type: media
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

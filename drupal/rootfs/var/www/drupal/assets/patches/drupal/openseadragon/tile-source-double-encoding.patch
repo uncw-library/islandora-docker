@@ -1,0 +1,14 @@
+diff --git a/openseadragon.module b/openseadragon.module
+index 467da65..d1c8e18 100644
+--- a/openseadragon.module
++++ b/openseadragon.module
+@@ -79,7 +79,8 @@ function template_preprocess_openseadragon_formatter(&$variables) {
+ 
+       $resource = $fileinfo_service->getFileData($file);
+       if (isset($resource['full_path'])) {
+-        $tile_sources[] = rtrim($iiif_address, '/') . '/' . urlencode($resource['full_path']);
++        // full_path is already URL-encoded; encode once, or spaces become %2520.
++        $tile_sources[] = rtrim($iiif_address, '/') . '/' . rawurlencode(rawurldecode($resource['full_path']));
+       }
+     }
+   }

@@ -1,0 +1,20 @@
+uuid: cc707de9-635e-49fa-bfef-3143afc8ca4c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - uncw_barrio
+_core:
+  default_config_hash: UCgK_U0_5k_Iq5kV20mVj4KhQh2t2GVlNgxCvkk0Ag4
+id: uncw_barrio_page_title
+theme: uncw_barrio
+region: content
+weight: -7
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

@@ -1,0 +1,23 @@
+uuid: 00766c36-f0a2-4727-b600-9c605cbb02ea
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - media
+id: media.field_materials_zip
+field_name: field_materials_zip
+entity_type: media
+type: file
+settings:
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: fedora
+module: file
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

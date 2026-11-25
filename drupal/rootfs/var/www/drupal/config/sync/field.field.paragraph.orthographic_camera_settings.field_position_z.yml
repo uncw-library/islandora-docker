@@ -1,0 +1,23 @@
+uuid: 507e423e-2ac6-45d9-9ff0-ea489d6394cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_position_z
+    - paragraphs.paragraphs_type.orthographic_camera_settings
+id: paragraph.orthographic_camera_settings.field_position_z
+field_name: field_position_z
+entity_type: paragraph
+bundle: orthographic_camera_settings
+label: 'Position Z'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float
