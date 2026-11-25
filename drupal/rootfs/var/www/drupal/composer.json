@@ -49,6 +49,7 @@
         "cweagans/composer-patches": "^1.7",
         "discoverygarden/dgi_3d_solution": "^1.0",
         "discoverygarden/dgi_3d_viewer": "^1.6",
+        "discoverygarden/dgi_fixity": "^1.4",
         "discoverygarden/dgi_image_discovery": "^1",
         "discoverygarden/embargo": "^1.8",
         "discoverygarden/islandora_hocr": "^1.4",
