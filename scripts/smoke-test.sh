@@ -105,7 +105,8 @@ fcrepo_has() { [[ "$(docker exec fcrepo curl -s -o /dev/null -w '%{http_code}' "
 NODE_PATH="${UUID:0:2}/${UUID:2:2}/${UUID:4:2}/${UUID:6:2}/$UUID"
 wait_for "fcrepo: node resource /$NODE_PATH (milliner)" fcrepo_has "$NODE_PATH"
 # fedora:// files are written straight to Fedora by Drupal's flysystem adapter.
-ORIG_PATH=$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1].removeprefix("fedora://")))' "$ORIG_URI")
+# Strip the prefix in bash: str.removeprefix() needs Python 3.9+, and RHEL 8 servers ship 3.6.
+ORIG_PATH=$(python3 -c 'import sys,urllib.parse; print(urllib.parse.quote(sys.argv[1]))' "${ORIG_URI#fedora://}")
 wait_for "fcrepo: original binary /$ORIG_PATH (drupal flysystem)" fcrepo_has "$ORIG_PATH"
 
 blazegraph_has() {
@@ -146,9 +147,13 @@ if $KEEP || (( FAILED )); then
     echo "    docker exec islandora drush entity:delete node $NID"
 else
     MIDS=$(sql "SELECT GROUP_CONCAT(entity_id) FROM media__field_media_of WHERE field_media_of_target_id = $NID")
-    for mid in ${MIDS//,/ }; do "${CURL[@]}" "${AUTH[@]}" -X DELETE "$BASE/media/$mid?_format=json" -o /dev/null; done
-    "${CURL[@]}" "${AUTH[@]}" -X DELETE "$BASE/node/$NID?_format=json" -o /dev/null
-    pass "deleted node $NID and media $MIDS"
+    # Media's REST route is /media/{id}/edit (standalone media URLs are off); /media/{id} 404s.
+    for mid in ${MIDS//,/ }; do
+        code=$("${CURL[@]}" "${AUTH[@]}" -X DELETE "$BASE/media/$mid/edit?_format=json" -o /dev/null -w '%{http_code}')
+        [[ "$code" == 204 ]] || fail "delete media $mid (HTTP $code)"
+    done
+    code=$("${CURL[@]}" "${AUTH[@]}" -X DELETE "$BASE/node/$NID?_format=json" -o /dev/null -w '%{http_code}')
+    if [[ "$code" == 204 ]]; then pass "deleted node $NID and media $MIDS"; else fail "delete node $NID (HTTP $code)"; fi
 fi
 
 echo
