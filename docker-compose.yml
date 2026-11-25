@@ -1,9 +1,14 @@
 name: islandora
 
 secrets:
-  # Development certificates
+  # Root CA (Randall Library, CN=libapps-dev.uncw.edu) that signed the shared
+  # traefik's *.libapps-dev.uncw.edu cert, so services can call each other over
+  # the public https hostnames. The base image's cacert-import.sh needs both:
+  #   CERT_PUBLIC_KEY -> cert.pem   : must be non-empty or update-ca-certificates
+  #                                   is skipped (curl/PHP won't trust the CA)
+  #   CERT_AUTHORITY  -> rootCA.pem : imported into the Java keystore
   CERT_PUBLIC_KEY:
-    file: ./dev_certs/cert.pem
+    file: ./dev_certs/rootCA.pem
   CERT_AUTHORITY:
     file: ./dev_certs/rootCA.pem
   UID:
@@ -71,7 +76,8 @@ services:
       - traefik.http.routers.cantaloupe.entrypoints=websecure
       - traefik.http.routers.cantaloupe.rule=Host(`islandora.libapps-dev.uncw.edu`) && PathPrefix(`/cantaloupe`)
       - traefik.http.routers.cantaloupe.tls=true
-      - traefik.http.routers.cantaloupe.middlewares=cantaloupe-chain@file,jumpbox-whitelist@file
+      # No jumpbox-whitelist: the image viewer fetches /cantaloupe from the visitor's browser.
+      - traefik.http.routers.cantaloupe.middlewares=cantaloupe-chain@file
       - traefik.http.routers.cantaloupe.priority=100
       - traefik.http.services.cantaloupe.loadbalancer.server.port=8182
     healthcheck:
@@ -122,8 +128,8 @@ services:
       - ./env_files/jwt.env
       - ./env_files/fcrepo.env
     secrets:
-     - source: CERT_PUBLIC_KEY
-     - source: CERT_AUTHORITY
+      - source: CERT_PUBLIC_KEY
+      - source: CERT_AUTHORITY
     labels:
       # Due to weird logic in `fcrepo/static/js/common.js`, do not use https
       # as it assumes it always needs to append /fcr:metadata to every request
