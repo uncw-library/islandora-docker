@@ -81,6 +81,7 @@ services:
 
   islandora:
     image: uncwlibrary/islandora-drupal:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
+    platform: linux/amd64
     container_name: islandora
     build:
       context: ./drupal
@@ -169,6 +170,7 @@ services:
     # After changing anything in ./solr: docker compose build solr && docker compose up -d solr
     image: uncwlibrary/islandora-solr:${ISLANDORA_TAG:?set ISLANDORA_TAG in .env}
     container_name: solr
+    platform: linux/amd64
     build:
       context: ./solr
       args:
